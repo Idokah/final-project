@@ -1,0 +1,6 @@
+﻿  main.c
+c:\users\ido\source\repos\finalproject\finalproject\main.c(11): warning C4013: 'malloc' undefined; assuming extern returning int
+c:\users\ido\source\repos\finalproject\finalproject\main.c(48): warning C4018: '<': signed/unsigned mismatch
+c:\users\ido\source\repos\finalproject\finalproject\main.c(100): warning C4013: 'realloc' undefined; assuming extern returning int
+c:\users\ido\source\repos\finalproject\finalproject\main.c(67): warning C4716: 'validMove': must return a value
+  FinalProject.vcxproj -> C:\Users\Ido\source\repos\FinalProject\Debug\FinalProject.exe
