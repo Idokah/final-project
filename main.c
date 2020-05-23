@@ -1,22 +1,73 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <stdio.h>
 #include "Header.h"
-#include "pathTree.h"
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include "list.h"
+
+Move initNewMove(int row, int col) {
+	Move newMove;
+	newMove.rows = row;
+	newMove.cols = col;
+	return newMove;
+}
+
+moveCell initNewMoveCell (Move move, moveCell *next, moveCell *prev) {
+	moveCell newMoveCell;
+	newMoveCell.move = move;
+	newMoveCell.next = next;
+	newMoveCell.prev = prev;
+	return newMoveCell;
+}
+
+movesList initNewMoveList(moveCell *head, moveCell *tail) {
+	movesList movesLst;
+	movesLst.head = head;
+	movesLst.tail = tail;
+	return movesLst;
+}
+
 
 int main(){
-	Move*  move1 = (Move*)malloc(sizeof(Move));
-	move1->cols = 1;
-	move1->rows = 1;
-	movesArray **moves = (movesArray **)malloc(sizeof(movesArray*)*N);
+	// init moves
+	Move move1 = initNewMove(1, 1);
+	Move move2 = initNewMove(2, 1);
+	Move move3 = initNewMove(1, 2);
+	Move move4 = initNewMove(2, -2);
+	Move move5 = initNewMove(-1, -1);
+
+	//init moveArray1
+	Move* moveArray1 = (Move*)malloc(sizeof(Move) * 4);
+	moveArray1[0] = move1;
+	moveArray1[1] = move2;
+	moveArray1[2] = move3;
+	moveArray1[3] = move4;
+
+	//init moveArray2
+	Move* moveArray2 = (Move*)malloc(2 * sizeof(Move));
+	moveArray2[0] = move5;
+	moveArray2[1] = move1;
+
+	//init moveArrays
+	movesArray **moveArrays = (movesArray **)malloc(sizeof(movesArray*)*N);
 	for (int row = 0; row < N; row++) {
-		moves[row] = (movesArray *)malloc(sizeof(movesArray)*M);
+		moveArrays[row] = (movesArray *)malloc(sizeof(movesArray)*M);
 		for (int col = 0; col < M ; col++) {
-			moves[row][col].moves = move1;
-			moves[row][col].size = 1 ;
+			if (col == 1 && row == 1) {
+				moveArrays[row][col].moves = moveArray2;
+				moveArrays[row][col].size = 2;
+			}
+			else {
+				moveArrays[row][col].moves = moveArray1;
+				moveArrays[row][col].size = 4;
+			}
 		}
 	}
 
+	//init board
 	char **board = (char **)malloc(sizeof(char *)*N);
 	for (int row = 0; row < N; row++) {
 		board[row] = (char *)malloc(sizeof(char)*M);
@@ -25,55 +76,25 @@ int main(){
 			else board[row][col] = ' ';
 		}
 	}
-	boardPosArray** BPosArray = validMoves(moves, board);
 
-    Move *move2 = (Move *)malloc(sizeof(Move));
-    move2->cols = 2;
-    move2->rows = 1;
+	// init moveCells
+	moveCell moveCell1 = initNewMoveCell(move1, NULL, NULL);
+	moveCell moveCell2 = initNewMoveCell(move2, NULL, &moveCell1);
+	moveCell moveCell3 = initNewMoveCell(move3, NULL, &moveCell2);
+	moveCell moveCell4 = initNewMoveCell(move4, NULL, &moveCell3);
+	moveCell1.next = &moveCell2;
+	moveCell2.next = &moveCell3;
+	moveCell3.next = &moveCell4;
 
-    Move *move3 = (Move *)malloc(sizeof(Move));
-    move3->cols=0;
-    move3->rows=1;
+	// init moveCellsLst
+	movesList movesLst = initNewMoveList(&moveCell1, &moveCell4);
 
-    Move *move4 = (Move *)malloc(sizeof(Move));
-    move4->cols=-2;
-    move4->rows=2;
+	// q1
+	boardPosArray** validBoardPosArray = validMoves(moveArrays, board);
 
-
-    Move *move5 = (Move *)malloc(sizeof(Move));
-    move5->cols=2;
-    move5->rows=-2;
-
-	moveCell* moveCell1= (moveCell*)malloc(sizeof(moveCell));
-	moveCell1->move = *move2;
-    moveCell1->next = NULL;
-    moveCell1->prev = NULL;
-
-    moveCell* moveCell2= (moveCell*)malloc(sizeof(moveCell));
-    moveCell2->move = *move3;
-    moveCell2->next = NULL;
-    moveCell2->prev = moveCell1;
-
-
-
-    moveCell* moveCell3= (moveCell*)malloc(sizeof(moveCell));
-    moveCell3->move = *move4;
-    moveCell3->next = NULL;
-    moveCell3->prev = moveCell2;
-
-    moveCell* moveCell4= (moveCell*)malloc(sizeof(moveCell));
-    moveCell4->move = *move5;
-    moveCell4->next = NULL;
-    moveCell4->prev = moveCell3;
-
-
-    moveCell1->next = moveCell2;
-    moveCell2->next = moveCell3;
-    moveCell3->next = moveCell4;
-
-    movesList movesLst;
-    movesLst.tail = moveCell4;
-    movesLst.head = moveCell1;
-    int res = display(&movesLst,"A3",board);
-    pathTree treeRes =  findAllPossiblePaths("A3", moves, board);
+	// q2
+    int res = display(&movesLst,"A1",board);
+	
+	// q3
+    pathTree treeRes =  findAllPossiblePaths("A1", moveArrays, board);
 }

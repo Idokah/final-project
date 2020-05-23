@@ -1,7 +1,6 @@
 #ifndef FINAL_PROJECT_PATHTREE_H
 #define FINAL_PROJECT_PATHTREE_H
 
-
 #include "Header.h"
 
 //typedef struct _treeNodeListCell treeNodeListCell;

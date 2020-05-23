@@ -143,11 +143,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="functions.c" />
+    <ClCompile Include="q1.c" />
+    <ClCompile Include="list.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="q2.c" />
+    <ClCompile Include="q3.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h" />
+    <ClInclude Include="pathTree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

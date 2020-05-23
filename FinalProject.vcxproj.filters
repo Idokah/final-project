@@ -18,12 +18,24 @@
     <ClInclude Include="Header.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="pathTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="functions.c">
+    <ClCompile Include="list.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="q3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="q2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="q1.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
