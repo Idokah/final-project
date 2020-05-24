@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "list.h"
+//#include "list.h"
 //#include "pathTree.h"
 
 
@@ -68,5 +68,12 @@ void removeMoveFromMoveList(moveCell* move,movesList* movesList);
 pathTree findAllPossiblePaths(boardPos start, movesArray **moves, char **board);
 treeNodeListCell *getChildList(boardPos boardPos, boardPosArray **validBoardPosArr, boardPosArray currentPath);
 treeNode *createNewTreeNode(boardPos position, treeNodeListCell * treeNodeListCell);
+void extractRowAndColFromBoardPos(boardPos pos, int *row, int *col);
+bool isPosValid(int row, int col, char **board);
+
+// -------lists-------
+void removeFromStartOfList(moveCell *move,movesList *movesList);
+void removeFromEndOfList(moveCell *move,movesList *movesList);
+void removeFromMiddleOfList(moveCell *move,movesList *movesList);
 
 #endif

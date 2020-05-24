@@ -4,8 +4,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-#include "list.h"
 
 boardPosArray **validMoves(movesArray **moves, char **board) {
 	boardPosArray** boardPosArr = initNewBoardPosArr();

@@ -1,12 +1,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Header.h"
-
-#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-#include "list.h"
+
 
 Move initNewMove(int row, int col) {
 	Move newMove;
@@ -91,10 +88,9 @@ int main(){
 
 	// q1
 	boardPosArray** validBoardPosArray = validMoves(moveArrays, board);
-
-	// q2
+    //q2
     int res = display(&movesLst,"A1",board);
-	
+
 	// q3
     pathTree treeRes =  findAllPossiblePaths("A1", moveArrays, board);
 }

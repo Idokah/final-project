@@ -2,8 +2,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-#include "list.h"
 
 treeNode *createNewTreeNode(boardPos position, treeNodeListCell * treeNodeListCell) {
 	treeNode *newNode = malloc(sizeof(treeNode));
@@ -38,7 +36,7 @@ pathTree findAllPossiblePaths(boardPos start, movesArray **moves, char **board) 
 	boardPosArray currentPath;
 	currentPath.size = 0;
 	currentPath.positions = NULL;
-	treeNode *root = createNewTreeNode(start, getChildList(start, validBoardPosArr, currentPath, 1));
+	treeNode *root = createNewTreeNode(start, getChildList(start, validBoardPosArr, currentPath));
 	return createNewPathTree(root);
 }
 
