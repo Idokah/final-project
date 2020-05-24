@@ -1,9 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Header.h"
-#include <stdbool.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include "list.h"
 
 char **duplicateBoard(char **board) {
 	char **newBoard = (char **)malloc(N * sizeof(char *));

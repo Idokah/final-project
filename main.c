@@ -1,9 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Header.h"
-#include <stdlib.h>
-#include <stdio.h>
-
 
 Move initNewMove(int row, int col) {
 	Move newMove;

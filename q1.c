@@ -1,9 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Header.h"
-#include <stdbool.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 boardPosArray **validMoves(movesArray **moves, char **board) {
 	boardPosArray** boardPosArr = initNewBoardPosArr();

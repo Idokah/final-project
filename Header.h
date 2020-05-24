@@ -5,9 +5,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-//#include "list.h"
-//#include "pathTree.h"
-
 
 #define M 5
 #define N 4
@@ -70,10 +67,5 @@ treeNodeListCell *getChildList(boardPos boardPos, boardPosArray **validBoardPosA
 treeNode *createNewTreeNode(boardPos position, treeNodeListCell * treeNodeListCell);
 void extractRowAndColFromBoardPos(boardPos pos, int *row, int *col);
 bool isPosValid(int row, int col, char **board);
-
-// -------lists-------
-void removeFromStartOfList(moveCell *move,movesList *movesList);
-void removeFromEndOfList(moveCell *move,movesList *movesList);
-void removeFromMiddleOfList(moveCell *move,movesList *movesList);
 
 #endif
