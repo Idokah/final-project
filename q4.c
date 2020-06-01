@@ -14,24 +14,29 @@ movesList initNewMoveList1(moveCell *head, moveCell *tail) {
     return movesLst;
 }
 
-void getMovesList(boardPosArray boardPosArray, movesList *ptrMovesList){
+//void createMovesList(boardPosArray boardPosArray, movesList *ptrMovesList){
+movesList createMovesList(boardPosArray boardPosArray){
     int row, col;
     boardPos prev, curr;
-    moveCell *prevMoveCell = NULL;
+    moveCell *prevMoveCell = (moveCell *)malloc(sizeof(moveCell));
+//    prevMoveCell = NULL;
     movesList moves = initNewMoveList1(NULL,NULL);
-    for (int i = 0; i < boardPosArray.size - 1; ++i) {
-        prev[0] = boardPosArray.positions[i][0];
-        prev[1] = boardPosArray.positions[i][1];
-        curr[0] = boardPosArray.positions[i+1][0];
-        curr[1] = boardPosArray.positions[i+1][1];
+    for (int i = boardPosArray.size - 2; i >= 0 ; i--) {
+        prev[0] = boardPosArray.positions[i+1][0];
+        prev[1] = boardPosArray.positions[i+1][1];
+        curr[0] = boardPosArray.positions[i][0];
+        curr[1] = boardPosArray.positions[i][1];
         row = curr[0] - prev[0];
         col = curr[1] - prev[1];
-        moveCell newMove = initNewMoveCell(initNewMove(row,col), NULL, prevMoveCell);
-        addToEndOfList(&newMove, &moves);
-        prevMoveCell = &newMove;
+        moveCell *newMove = initNewMoveCell(initNewMove(row,col), NULL, prevMoveCell);
+        addToEndOfList(newMove, &moves);
+//        *prevMoveCell = newMove;
+        prevMoveCell = newMove;
     }
     moves.tail = prevMoveCell;
-    *ptrMovesList = moves;
+    free(prevMoveCell);
+    return moves;
+//    *ptrMovesList = moves;
     // free boardPosArray?
 }
 
@@ -40,7 +45,7 @@ movesList *findPathCoveringAllBoard(boardPos start, movesArray **moves, char **b
     pathTree pathTree = findAllPossiblePaths(start, moves, board);
     boardPosArray longestPath = getTreeLongestPath(&pathTree);
 //    if (longestPath.size == validPosNum){
-//        getMovesList(longestPath);
+        createMovesList(longestPath);
 //    }
     return NULL;
 }
@@ -88,19 +93,16 @@ boardPosArray getTreeLongestPathRec(treeNode *root){
 
 
 boardPosArray insertToBoardPosStart(boardPosArray boardPosArr,boardPos new) {
-    boardPosArr.size++;
-    boardPosArr.positions=realloc(boardPosArr.positions,sizeof(boardPos)*(boardPosArr.size));
-//    for (int i = 1; i < boardPosArr.size ; i++){
-//        boardPosArr.positions[i][0]=boardPosArr.positions[i-1][0];
-//        boardPosArr.positions[i][1]=boardPosArr.positions[i-1][1];
-//    }
-//
+    boardPosArr.positions=realloc(boardPosArr.positions,sizeof(boardPos)*(boardPosArr.size + 1));
     // not very efficient - maybe insert straight into list
-    for (int i = boardPosArr.size - 1 ; i >= 1 ; i--){
-        boardPosArr.positions[i][0] = boardPosArr.positions[i-1][0];
-        boardPosArr.positions[i][1] = boardPosArr.positions[i-1][1];
-    }
-    boardPosArr.positions[0][0] = new[0];
-    boardPosArr.positions[0][1] = new[1];
+//    for (int i = boardPosArr.size - 1 ; i >= 1 ; i--){
+//        boardPosArr.positions[i][0] = boardPosArr.positions[i-1][0];
+//        boardPosArr.positions[i][1] = boardPosArr.positions[i-1][1];
+//    }
+//    boardPosArr.positions[0][0] = new[0];
+//    boardPosArr.positions[0][1] = new[1];
+    boardPosArr.positions[boardPosArr.size][0] = new[0];
+    boardPosArr.positions[boardPosArr.size][1] = new[1];
+    boardPosArr.size++;
     return boardPosArr;
 }

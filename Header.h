@@ -57,7 +57,8 @@ typedef struct _pathTree {
 
 // -------------------init--------------------
 Move initNewMove(int row, int col);
-moveCell initNewMoveCell (Move move, moveCell *next, moveCell *prev);
+//moveCell initNewMoveCell (Move move, moveCell *next, moveCell *prev);
+moveCell *initNewMoveCell (Move move, moveCell *next, moveCell *prev);
 movesList initNewMoveList(moveCell *head, moveCell *tail);
 
 boardPosArray **validMoves(movesArray **moves, char **board);
