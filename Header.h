@@ -55,6 +55,10 @@ typedef struct _pathTree {
     treeNode * head;
 } pathTree;
 
+// -------------------init--------------------
+Move initNewMove(int row, int col);
+moveCell initNewMoveCell (Move move, moveCell *next, moveCell *prev);
+movesList initNewMoveList(moveCell *head, moveCell *tail);
 
 boardPosArray **validMoves(movesArray **moves, char **board);
 void validMove(int row, int col, movesArray* moves, char **board, boardPosArray* boardPosArr);
@@ -67,5 +71,6 @@ treeNodeListCell *getChildList(boardPos boardPos, boardPosArray **validBoardPosA
 treeNode *createNewTreeNode(boardPos position, treeNodeListCell * treeNodeListCell);
 void extractRowAndColFromBoardPos(boardPos pos, int *row, int *col);
 bool isPosValid(int row, int col, char **board);
+boardPosArray updatePathArray(boardPosArray currentPathArr, int *phySizeCurrentPath, boardPos newBoardPos);
 
 #endif

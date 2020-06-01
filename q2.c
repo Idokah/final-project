@@ -67,7 +67,7 @@ void removeMoveFromMoveList(moveCell* move, movesList* movesList) {
 void printBoard(char **board) {
 	char currCh;
 	for (int row = 0; row <= 2 * (N + 1); row++) {
-		for (int col = 0; col <= 4 * M; col++) {
+		for (int col = 0; col <= 4 * (M+1); col++) {
 			if (row % 2 == 0 && col % 4 == 0)
 				printf("+");
 			else if (row % 2 == 0)

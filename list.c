@@ -16,3 +16,16 @@ void removeFromMiddleOfList(moveCell *move,movesList *movesList){
     move->prev->next=move->next;
     //free(move->move); ???
 }
+
+void addToEndOfList(moveCell *move, movesList *movesList) {
+    if (movesList ->head == NULL){
+        move->prev = NULL;
+        movesList->head = move;
+        movesList->tail = move;
+        return;
+    }
+    move->prev = movesList->tail;
+    movesList->tail->next = move;
+    movesList->tail = move;
+}
+
