@@ -3,7 +3,6 @@
 #include "Header.h"
 
 int main() {
-
 	// init moves
 	Move move1 = initNewMove(1, 1);
 	Move move2 = initNewMove(2, 1);
@@ -13,7 +12,6 @@ int main() {
 	Move move6 = initNewMove(0, -2);
 	Move move7 = initNewMove(-2, 1);
 	Move move8 = initNewMove(-1, 0);
-
 
 	//init moveArray1
 	Move* moveArray1 = (Move*)malloc(sizeof(Move) * 4);
@@ -76,6 +74,7 @@ int main() {
 			else board[row][col] = ' ';
 		}
 	}
+
 	// for making the tree in q3 to be splited
 	//board[1][4] = ' ';
 
@@ -94,26 +93,24 @@ int main() {
 	// q1
 	boardPosArray** validBoardPosArray = validMoves(moveArrays, board);
 
-	//q2/
+	// q2
 	int res = display(movesLst, "A1", board);
 
 	 //q3
     pathTree treeRes =  findAllPossiblePaths("A1", moveArrays, board);
 
-	//q4
+	// q4
 	movesList *pathMoveList = findPathCoveringAllBoard("A1", moveArrays2, board);
 
-	//free2DArray(board);
-	//free(moveArray1);
-	//free(moveArray2);
-	//free(moveArray3);
-	//free2DArray(moveArrays);
-	//free2DArray(moveArrays2);
-	//freeMoveList(movesLst);
-	//free(moveArrays);
-	//free(moveArrays2);
-	//if (pathMoveList)
-	//	freeMoveList(pathMoveList);
-	//freePathTree(treeRes);
+	free2DArray(board);
+	free(moveArray1);
+	free(moveArray2);
+	free(moveArray3);
+	free2DArray(moveArrays);
+	free2DArray(moveArrays2);
+	freeMoveList(movesLst);
+	if (pathMoveList)
+		freeMoveList(pathMoveList);
+	freePathTree(treeRes);
 }
 

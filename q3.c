@@ -63,7 +63,6 @@ boardPosArray updatePathArray(boardPosArray currentPathArr, int *phySizeCurrentP
 }
 
 treeNodeListCell *getChildList(boardPos boardPos, boardPosArray **validBoardPosArr, boardPosArray currentPath, int *phySizeCurrentPath) {
-	//static int phySizeCurrentPath = 0;
 	int row, col;
 	extractRowAndColFromBoardPos(boardPos, &row, &col);
 	boardPosArray boardPosArr = validBoardPosArr[row][col];
