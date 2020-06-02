@@ -33,7 +33,8 @@ pathTree findAllPossiblePaths(boardPos start, movesArray **moves, char **board) 
 	boardPosArray currentPath;
 	currentPath.size = 0;
 	currentPath.positions = NULL;
-	treeNode *root = createNewTreeNode(start, getChildList(start, validBoardPosArr, currentPath));
+	int phySize = 0;
+	treeNode *root = createNewTreeNode(start, getChildList(start, validBoardPosArr, currentPath, &phySize));
 	return createNewPathTree(root);
 }
 
@@ -61,17 +62,17 @@ boardPosArray updatePathArray(boardPosArray currentPathArr, int *phySizeCurrentP
 	return currentPathArr;
 }
 
-treeNodeListCell *getChildList(boardPos boardPos, boardPosArray **validBoardPosArr, boardPosArray currentPath) {
-	static int phySizeCurrentPath = 0;
+treeNodeListCell *getChildList(boardPos boardPos, boardPosArray **validBoardPosArr, boardPosArray currentPath, int *phySizeCurrentPath) {
+	//static int phySizeCurrentPath = 0;
 	int row, col;
 	extractRowAndColFromBoardPos(boardPos, &row, &col);
 	boardPosArray boardPosArr = validBoardPosArr[row][col];
 	if (boardPosArr.size == 0) return NULL;
-	currentPath = updatePathArray(currentPath, &phySizeCurrentPath, boardPos);
+	currentPath = updatePathArray(currentPath, phySizeCurrentPath, boardPos);
 	treeNodeListCell *headChildList = NULL;
 	for (int i = 0; i < boardPosArr.size; ++i) {
 		if (!isBoardPosAlreadyExists(boardPosArr.positions[i], currentPath)) {
-			treeNode *newTreeNode = createNewTreeNode(boardPosArr.positions[i], getChildList(boardPosArr.positions[i], validBoardPosArr, currentPath));
+			treeNode *newTreeNode = createNewTreeNode(boardPosArr.positions[i], getChildList(boardPosArr.positions[i], validBoardPosArr, currentPath, phySizeCurrentPath));
 			headChildList = addToEndOfChildList(headChildList, newTreeNode);
 		}
 	}

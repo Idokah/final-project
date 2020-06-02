@@ -43,6 +43,7 @@ int main() {
 	for (int row = 0; row < N; row++) {
 		moveArrays[row] = (movesArray *)malloc(sizeof(movesArray)*M);
 		for (int col = 0; col < M; col++) {
+			// for making the tree in q3 to be splited
 			//if (col == 1 && row == 1) {
 			//	moveArrays[row][col].moves = moveArray2;
 			//	moveArrays[row][col].size = 2;
@@ -75,6 +76,7 @@ int main() {
 			else board[row][col] = ' ';
 		}
 	}
+	// for making the tree in q3 to be splited
 	//board[1][4] = ' ';
 
 	// init moveCells
@@ -88,14 +90,15 @@ int main() {
 
 	// init moveCellsLst
 	movesList *movesLst = initNewMoveList(moveCell1, moveCell4);
+
 	// q1
-	//boardPosArray** validBoardPosArray = validMoves(moveArrays, board);
+	boardPosArray** validBoardPosArray = validMoves(moveArrays, board);
 
 	//q2/
 	int res = display(movesLst, "A1", board);
 
 	 //q3
-    //pathTree treeRes =  findAllPossiblePaths("A1", moveArrays, board);
+    pathTree treeRes =  findAllPossiblePaths("A1", moveArrays, board);
 
 	//q4
 	movesList *pathMoveList = findPathCoveringAllBoard("A1", moveArrays2, board);

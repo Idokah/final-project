@@ -25,7 +25,7 @@ movesList *createMovesList(boardPosArray boardPosArray){
         addToEndOfList(newMove, moves);
         *prevMoveCell = newMove;
     }
-    //free(prevMoveCell);
+    free(prevMoveCell);
     return moves;
 }
 

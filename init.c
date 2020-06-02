@@ -7,14 +7,7 @@ Move initNewMove(int row, int col) {
     return newMove;
 }
 
-//moveCell initNewMoveCell (Move move, moveCell *next, moveCell *prev) {
-//    moveCell newMoveCell;
-//    newMoveCell.move = move;
-//    newMoveCell.next = next;
-//    newMoveCell.prev = prev;
-//    //newMoveCell.prev->next = &newMoveCell;
-//    return newMoveCell;
-//}
+
 moveCell *initNewMoveCell (Move move, moveCell *next, moveCell *prev) {
     moveCell *newMoveCell=(moveCell*)malloc(sizeof(moveCell));//
     newMoveCell->move = move;
