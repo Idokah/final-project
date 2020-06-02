@@ -67,7 +67,7 @@ void printBoard(char **board);
 boardPosArray **initNewBoardPosArr();
 void removeMoveFromMoveList(moveCell* move,movesList* movesList);
 pathTree findAllPossiblePaths(boardPos start, movesArray **moves, char **board);
-treeNodeListCell *getChildList(boardPos boardPos, boardPosArray **validBoardPosArr, boardPosArray currentPath);
+treeNodeListCell *getChildList(boardPos boardPos, boardPosArray **validBoardPosArr, boardPosArray currentPath, int *phySizeCurrentPath);
 treeNode *createNewTreeNode(boardPos position, treeNodeListCell * treeNodeListCell);
 void extractRowAndColFromBoardPos(boardPos pos, int *row, int *col);
 bool isPosValid(int row, int col, char **board);
