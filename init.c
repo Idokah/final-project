@@ -12,22 +12,20 @@ Move initNewMove(int row, int col) {
 //    newMoveCell.move = move;
 //    newMoveCell.next = next;
 //    newMoveCell.prev = prev;
-//    newMoveCell.prev->next = &newMoveCell;
+//    //newMoveCell.prev->next = &newMoveCell;
 //    return newMoveCell;
 //}
-
 moveCell *initNewMoveCell (Move move, moveCell *next, moveCell *prev) {
-    moveCell *newMoveCell = (moveCell *)malloc(sizeof(moveCell));
+    moveCell *newMoveCell=(moveCell*)malloc(sizeof(moveCell));//
     newMoveCell->move = move;
     newMoveCell->next = next;
     newMoveCell->prev = prev;
-    newMoveCell->prev->next = newMoveCell;
     return newMoveCell;
 }
 
-movesList initNewMoveList(moveCell *head, moveCell *tail) {
-    movesList movesLst;
-    movesLst.head = head;
-    movesLst.tail = tail;
+movesList *initNewMoveList(moveCell *head, moveCell *tail) {
+    movesList *movesLst=(movesList *)malloc(sizeof(movesList));//
+    movesLst->head = head;
+    movesLst->tail = tail;
     return movesLst;
 }

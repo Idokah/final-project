@@ -10,7 +10,7 @@
 #define N 4
 
 #define ISDIGIT(c) (((((c) >= 0) && ((c) <= 9))) ? (true) : (false))
-
+#define ISNUMBER(c) (((((c) != '*') && ((c) != '#') &&((c) != ' '))) ? (true) : (false))
 typedef char boardPos[2];
 
 typedef struct _move {
@@ -57,9 +57,10 @@ typedef struct _pathTree {
 
 // -------------------init--------------------
 Move initNewMove(int row, int col);
+moveCell *initNewMoveCell(Move move, moveCell *next, moveCell *prev);
+
 //moveCell initNewMoveCell (Move move, moveCell *next, moveCell *prev);
-moveCell *initNewMoveCell (Move move, moveCell *next, moveCell *prev);
-movesList initNewMoveList(moveCell *head, moveCell *tail);
+movesList *initNewMoveList(moveCell *head, moveCell *tail);
 
 boardPosArray **validMoves(movesArray **moves, char **board);
 void validMove(int row, int col, movesArray* moves, char **board, boardPosArray* boardPosArr);
@@ -73,5 +74,10 @@ treeNode *createNewTreeNode(boardPos position, treeNodeListCell * treeNodeListCe
 void extractRowAndColFromBoardPos(boardPos pos, int *row, int *col);
 bool isPosValid(int row, int col, char **board);
 boardPosArray updatePathArray(boardPosArray currentPathArr, int *phySizeCurrentPath, boardPos newBoardPos);
+movesList *findPathCoveringAllBoard(boardPos start, movesArray **moves, char **board);
+// free
+void free2DArray(void** board);
+void freeMoveList(movesList* movesLst);
+void freePathTree(pathTree tree);
 
 #endif

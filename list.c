@@ -3,18 +3,21 @@
 void removeFromStartOfList(moveCell *move,movesList *movesList) {
     movesList->head=move->next;
     movesList->head->prev = NULL;
-    //free(move); ???
+    free(move);
 }
 
 void removeFromEndOfList(moveCell *move,movesList *movesList) {
-	//free(movesList->tail); ???
     movesList->tail = move->prev;
     movesList->tail->next = NULL;
+	free(move);
 }
 
 void removeFromMiddleOfList(moveCell *move,movesList *movesList){
-    move->prev->next=move->next;
-    //free(move->move); ???
+	moveCell *prev = move->prev;
+	moveCell *next = move->next;
+	prev->next=next;
+	next->prev = prev;
+	free(move);
 }
 
 void addToEndOfList(moveCell *move, movesList *movesList) {

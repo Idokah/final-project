@@ -17,12 +17,9 @@ char **duplicateBoard(char **board) {
 int display(movesList *moves_list, boardPos start, char **board) {
 	int movesCounter = 0;
 	int deletedMovesCounter = 0;
-	char **newBoard = duplicateBoard(board);
-	int newRow, currRow = start[0] - 'A';
-	int newCol, currCol;
-	sscanf(start + 1, "%d", &currCol);
-	currCol--;
-	// change to func
+	int currRow, currCol,newRow,newCol;
+	char **newBoard = duplicateBoard(board); //
+	extractRowAndColFromBoardPos(start,&currRow, &currCol);
 	newBoard[currRow][currCol] = '#';
 	moveCell *temp;
 	moveCell *currMoveNode = moves_list->head;
@@ -43,8 +40,8 @@ int display(movesList *moves_list, boardPos start, char **board) {
 			currMoveNode = temp;
 		}
 	}
-
 	printBoard(newBoard);
+	//free2DArray(newBoard);
 	return deletedMovesCounter;
 }
 
@@ -79,9 +76,19 @@ void printBoard(char **board) {
 			else if (col == 2 && row % 2 == 1 && row > 2)
 				printf("%c", 'A' + (row / 2) - 1);
 			else if (col % 4 == 2 && row % 2 == 1 && col > 1 && row > 1) {
-				currCh = (char)board[(row - 3) / 2][(col - 6) / 4];
-				if (ISDIGIT(currCh))
+				int currCol = (col - 6) / 4;
+				int currRow = (row - 3) / 2;
+				currCh = (char)board[currRow][currCol];
+				if (ISNUMBER(currCh)) {
 					printf("%d", currCh);
+					if (!ISDIGIT(currCh))
+						col++;
+					char nextCh = (char)board[currRow][currCol+1];
+					if (ISDIGIT(nextCh)) {
+						printf("%d",nextCh);
+						col++;
+					}
+				}
 				else printf("%c", currCh);
 			}
 			else

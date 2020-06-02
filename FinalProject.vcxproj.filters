@@ -38,5 +38,14 @@
     <ClCompile Include="q1.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="q4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="free.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
