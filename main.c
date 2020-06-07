@@ -13,6 +13,7 @@ int main() {
 	Move move7 = initNewMove(-2, 1);
 	Move move8 = initNewMove(-1, 0);
 
+
 	//init moveArray1
 	Move* moveArray1 = (Move*)malloc(sizeof(Move) * 4);
 	moveArray1[0] = move1;
@@ -96,13 +97,30 @@ int main() {
 	// q2
 	int res = display(movesLst, "A1", board);
 
-	 //q3
+	 // q3
     pathTree treeRes =  findAllPossiblePaths("A1", moveArrays, board);
 
 	// q4
 	movesList *pathMoveList = findPathCoveringAllBoard("A1", moveArrays2, board);
 
-	free2DArray(board);
+    // q5
+    boardPosArray boardPosArray;
+    boardPosArray.size=5;
+    boardPosArray.positions=(boardPos*)malloc(sizeof(boardPos) * 5);
+
+    boardPosArray.positions[0][0] = 'A';
+    boardPosArray.positions[0][1] = '1';
+    boardPosArray.positions[1][0] = 'B';
+    boardPosArray.positions[1][1] = '2';
+    boardPosArray.positions[2][0] = 'C';
+    boardPosArray.positions[2][1] = '5';
+    boardPosArray.positions[3][0] = 'D';
+    boardPosArray.positions[3][1] = '1';
+    boardPosArray.positions[4][0] = 'D';
+    boardPosArray.positions[4][1] = '1';
+    saveListToBinFile("q5.bin", &boardPosArray);
+
+    free2DArray(board);
 	free(moveArray1);
 	free(moveArray2);
 	free(moveArray3);
@@ -112,5 +130,6 @@ int main() {
 	if (pathMoveList)
 		freeMoveList(pathMoveList);
 	freePathTree(treeRes);
+
 }
 

@@ -73,6 +73,8 @@ void extractRowAndColFromBoardPos(boardPos pos, int *row, int *col);
 bool isPosValid(int row, int col, char **board);
 boardPosArray updatePathArray(boardPosArray currentPathArr, int *phySizeCurrentPath, boardPos newBoardPos);
 movesList *findPathCoveringAllBoard(boardPos start, movesArray **moves, char **board);
+void saveListToBinFile(char *file_name, boardPosArray *pos_arr);
+
 // free
 void free2DArray(void** board);
 void freeMoveList(movesList* movesLst);
