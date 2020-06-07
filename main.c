@@ -1,7 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Header.h"
-
 int main() {
 	// init moves
 	Move move1 = initNewMove(1, 1);
@@ -112,13 +111,20 @@ int main() {
     boardPosArray.positions[0][1] = '1';
     boardPosArray.positions[1][0] = 'B';
     boardPosArray.positions[1][1] = '2';
-    boardPosArray.positions[2][0] = 'C';
-    boardPosArray.positions[2][1] = '5';
+    boardPosArray.positions[2][0] = 'D';
+    boardPosArray.positions[2][1] = '3';
     boardPosArray.positions[3][0] = 'D';
     boardPosArray.positions[3][1] = '1';
-    boardPosArray.positions[4][0] = 'D';
+    boardPosArray.positions[4][0] = 'C';
     boardPosArray.positions[4][1] = '1';
+//    boardPosArray.positions[4][0] = 'B';
+//    boardPosArray.positions[4][1] = '1';
     saveListToBinFile("q5.bin", &boardPosArray);
+
+    //q6
+    checkAndDisplayPathFromFile ("q5.bin",moveArrays2, board);
+
+
 
     free2DArray(board);
 	free(moveArray1);

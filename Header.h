@@ -8,6 +8,7 @@
 
 #define M 5
 #define N 4
+typedef unsigned char BYTE;
 
 #define ISDIGIT(c) (((((c) >= 0) && ((c) <= 9))) ? (true) : (false))
 #define ISNUMBER(c) (((((c) != '*') && ((c) != '#') &&((c) != ' '))) ? (true) : (false))
@@ -74,7 +75,7 @@ bool isPosValid(int row, int col, char **board);
 boardPosArray updatePathArray(boardPosArray currentPathArr, int *phySizeCurrentPath, boardPos newBoardPos);
 movesList *findPathCoveringAllBoard(boardPos start, movesArray **moves, char **board);
 void saveListToBinFile(char *file_name, boardPosArray *pos_arr);
-
+int checkAndDisplayPathFromFile ( char *file_name, movesArray **moves, char **board);
 // free
 void free2DArray(void** board);
 void freeMoveList(movesList* movesLst);
