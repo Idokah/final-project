@@ -1,5 +1,6 @@
 #ifndef HEADER1
 #define HEADER1
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -68,11 +69,9 @@ void printBoard(char **board);
 boardPosArray **initNewBoardPosArr();
 void removeMoveFromMoveList(moveCell* move,movesList* movesList);
 pathTree findAllPossiblePaths(boardPos start, movesArray **moves, char **board);
-treeNodeListCell *getChildList(boardPos boardPos, boardPosArray **validBoardPosArr, boardPosArray currentPath, int *phySizeCurrentPath);
 treeNode *createNewTreeNode(boardPos position, treeNodeListCell * treeNodeListCell);
 void extractRowAndColFromBoardPos(boardPos pos, int *row, int *col);
 bool isPosValid(int row, int col, char **board);
-boardPosArray updatePathArray(boardPosArray currentPathArr, int *phySizeCurrentPath, boardPos newBoardPos);
 movesList *findPathCoveringAllBoard(boardPos start, movesArray **moves, char **board);
 void saveListToBinFile(char *file_name, boardPosArray *pos_arr);
 int checkAndDisplayPathFromFile ( char *file_name, movesArray **moves, char **board);

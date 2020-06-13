@@ -151,6 +151,8 @@
     <ClCompile Include="q2.c" />
     <ClCompile Include="q3.c" />
     <ClCompile Include="q4.c" />
+    <ClCompile Include="q5.c" />
+    <ClCompile Include="q6.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h" />

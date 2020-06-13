@@ -47,8 +47,8 @@ int main() {
 			//	moveArrays[row][col].size = 2;
 			//}
 			//else {
-				moveArrays[row][col].moves = moveArray1;
-				moveArrays[row][col].size = 4;
+			moveArrays[row][col].moves = moveArray1;
+			moveArrays[row][col].size = 4;
 			//}
 		}
 	}
@@ -91,51 +91,53 @@ int main() {
 	movesList *movesLst = initNewMoveList(moveCell1, moveCell4);
 
 	// q1
-	boardPosArray** validBoardPosArray = validMoves(moveArrays, board);
+	boardPosArray** validBoardPosArray = validMoves(moveArrays2, board);
 
 	// q2
 	int res = display(movesLst, "A1", board);
 
-	 // q3
-    pathTree treeRes =  findAllPossiblePaths("A1", moveArrays, board);
+	// q3
+	pathTree treeRes = findAllPossiblePaths("A1", moveArrays2, board);
 
 	// q4
 	movesList *pathMoveList = findPathCoveringAllBoard("A1", moveArrays2, board);
+	
+	// q5
+	boardPosArray boardPosArray;
+	boardPosArray.size = 7;
+	boardPosArray.positions = (boardPos*)malloc(sizeof(boardPos) * boardPosArray.size);
 
-    // q5
-    boardPosArray boardPosArray;
-    boardPosArray.size=5;
-    boardPosArray.positions=(boardPos*)malloc(sizeof(boardPos) * 5);
+	boardPosArray.positions[0][0] = 'A';
+	boardPosArray.positions[0][1] = '1';
+	boardPosArray.positions[1][0] = 'B';
+	boardPosArray.positions[1][1] = '2';
+	boardPosArray.positions[2][0] = 'D';
+	boardPosArray.positions[2][1] = '3';
+	boardPosArray.positions[3][0] = 'D';
+	boardPosArray.positions[3][1] = '1';
+	boardPosArray.positions[4][0] = 'C';
+	boardPosArray.positions[4][1] = '1';
+	boardPosArray.positions[5][0] = 'B';
+	boardPosArray.positions[5][1] = '1';
+	boardPosArray.positions[6][0] = 'D';
+	boardPosArray.positions[6][1] = '1';
+	saveListToBinFile("q5.bin", &boardPosArray);
 
-    boardPosArray.positions[0][0] = 'A';
-    boardPosArray.positions[0][1] = '1';
-    boardPosArray.positions[1][0] = 'B';
-    boardPosArray.positions[1][1] = '2';
-    boardPosArray.positions[2][0] = 'D';
-    boardPosArray.positions[2][1] = '3';
-    boardPosArray.positions[3][0] = 'D';
-    boardPosArray.positions[3][1] = '1';
-    boardPosArray.positions[4][0] = 'C';
-    boardPosArray.positions[4][1] = '1';
-//    boardPosArray.positions[4][0] = 'B';
-//    boardPosArray.positions[4][1] = '1';
-    saveListToBinFile("q5.bin", &boardPosArray);
-
-    //q6
-    checkAndDisplayPathFromFile ("q5.bin",moveArrays2, board);
+	//q6
+	checkAndDisplayPathFromFile("q5.bin", moveArrays2, board);
 
 
 
-    free2DArray(board);
-	free(moveArray1);
-	free(moveArray2);
-	free(moveArray3);
-	free2DArray(moveArrays);
-	free2DArray(moveArrays2);
-	freeMoveList(movesLst);
-	if (pathMoveList)
-		freeMoveList(pathMoveList);
-	freePathTree(treeRes);
+	   free2DArray(board);
+	   free(moveArray1);
+	   free(moveArray2);
+	   free(moveArray3);
+	   free2DArray(moveArrays);
+	   free2DArray(moveArrays2);
+	   freeMoveList(movesLst);
+	   if (pathMoveList)
+	   	freeMoveList(pathMoveList);
+	   freePathTree(treeRes);
 
 }
 

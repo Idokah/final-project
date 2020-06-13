@@ -1,9 +1,10 @@
 #include "Header.h"
-
+#define _CRT_SECURE_NO_WARNINGS
 boardPosArray readPathFromFile(char *file_name);
 void threeBytesToThreeBoardPos(BYTE *data, boardPos *boardPosArr, int i, short boardPosArrSize);
 bool isPathExists(pathTree pathTree, boardPosArray path);
-bool isPathExistsRec(treeNode *node, boardPosArray positions, int iPositions);
+bool isPathExistsRec(treeNode *node, boardPos *boardPosArr,int size);
+
 
 int checkAndDisplayPathFromFile(char *file_name, movesArray **moves, char **board){
     boardPosArray path = readPathFromFile(file_name);
@@ -57,22 +58,31 @@ void threeBytesToThreeBoardPos(BYTE *data, boardPos *boardPosArr, int boardPosIn
 }
 
 bool isPathExists(pathTree pathTree, boardPosArray boardPosArr){
-    isPathExistsRec(pathTree.head, boardPosArr, 0);
+	if (isPathExistsRec(pathTree.head, boardPosArr.positions, boardPosArr.size))
+		printf("T");
+	else printf("F");
 }
 
 
-bool isPathExistsRec(treeNode *node, boardPosArray boardPosArr, int iPositions){
-    if (iPositions == boardPosArr.size -1) {
-        if (node->position == boardPosArr.positions[iPositions])
-            return true;
-        else
-            return false;
-    }
-    bool flag = false;
-    treeNodeListCell *curr =  node->next_possible_positions;
-    while (curr != NULL && flag == false) {
-        if (isPathExistsRec(curr->node, boardPosArr, iPositions + 1)) flag = true;
-        curr = curr -> next;
-    }
-    return flag;
+bool isBoardPosEqual(boardPos boardPos1, boardPos boardPos2) {
+	return boardPos1[0] == boardPos2[0] && boardPos1[1] == boardPos2[1];
 }
+
+bool isPathExistsRec(treeNode *node, boardPos *boardPosArr, int size){
+	if (size == 1)
+		return (isBoardPosEqual(boardPosArr[0],node->position));
+	else {
+		if (isBoardPosEqual(boardPosArr[0], node->position)) {
+			treeNodeListCell *curr = node->next_possible_positions;
+			while (curr != NULL) {
+				if (isPathExistsRec(curr->node, boardPosArr + 1, size - 1))
+					return true;
+				curr=curr->next;
+			}
+			return false;
+		}
+		else return false;
+	}
+
+}
+

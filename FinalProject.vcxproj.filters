@@ -47,5 +47,11 @@
     <ClCompile Include="free.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="q5.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="q6.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
