@@ -56,16 +56,6 @@ treeNodeListCell *addToEndOfChildList(treeNodeListCell *head, treeNode *newTreeN
 	return head;
 }
 
-//boardPosArray updatePathArray(boardPosArray *currentPathArr, int *phySizeCurrentPath, boardPos newBoardPos) {
-//	if (currentPathArr.size >= *phySizeCurrentPath) {
-//		(*phySizeCurrentPath) ++ ;
-//		currentPathArr.positions = realloc(currentPathArr.positions, (*phySizeCurrentPath) * sizeof(boardPos));
-//	}
-//	currentPathArr.positions[currentPathArr.size][0] = newBoardPos[0];
-//	currentPathArr.positions[currentPathArr.size][1] = newBoardPos[1];
-//	currentPathArr.size++;
-//	return currentPathArr;
-//}
 void updatePathArray(boardPosArray *currentPathArr, int *phySizeCurrentPath, boardPos newBoardPos, int logSizeCurrentPath) {
 	if (logSizeCurrentPath >= *phySizeCurrentPath) {
 		(*phySizeCurrentPath)++;
@@ -74,8 +64,6 @@ void updatePathArray(boardPosArray *currentPathArr, int *phySizeCurrentPath, boa
 	currentPathArr->positions[logSizeCurrentPath][0] = newBoardPos[0];
 	currentPathArr->positions[logSizeCurrentPath][1] = newBoardPos[1];
 	return (logSizeCurrentPath+1);
-	//currentPathArr->size++;
-	//return currentPathArr;
 }
 
 
@@ -84,8 +72,6 @@ treeNodeListCell *getChildList(boardPos boardPos, boardPosArray **validBoardPosA
 	extractRowAndColFromBoardPos(boardPos, &row, &col);
 	boardPosArray boardPosArr = validBoardPosArr[row][col];
 	if (boardPosArr.size == 0) return NULL;
-	//currentPath = updatePathArray(&currentPath,phySizeCurrentPath, boardPos);
-
 	updatePathArray(currentPath,phySizeCurrentPath, boardPos,logSizeCurrentPath);
 	treeNodeListCell *headChildList = NULL;
 	for (int i = 0; i < boardPosArr.size; ++i) {

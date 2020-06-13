@@ -1,33 +1,69 @@
 #include "Header.h"
+#include "list.h"
+
 #define _CRT_SECURE_NO_WARNINGS
-boardPosArray readPathFromFile(char *file_name);
+
+boardPosArray *readPathFromFile(char *file_name);
 void threeBytesToThreeBoardPos(BYTE *data, boardPos *boardPosArr, int i, short boardPosArrSize);
 bool isPathExists(pathTree pathTree, boardPosArray path);
 bool isPathExistsRec(treeNode *node, boardPos *boardPosArr,int size);
+movesList *boardPosArrayToMovesList(boardPosArray *boardPosArr);
 
-
-int checkAndDisplayPathFromFile(char *file_name, movesArray **moves, char **board){
-    boardPosArray path = readPathFromFile(file_name);
-    pathTree pathTree = findAllPossiblePaths(path.positions[0], moves, board);
-    isPathExists(pathTree, path);
+int checkAndDisplayPathFromFile(char *file_name, movesArray **moves, char **board) {
+	boardPosArray *path = readPathFromFile(file_name);
+	if (path == NULL) return -1;
+	pathTree pathTree = findAllPossiblePaths(path->positions[0], moves, board);
+	if (!isPathExists(pathTree, *path)) {
+		free (path->positions);
+		free(path);
+		return 1;
+	}
+	int validPosNum = getCountOfValidPositions(board);
+	movesList *moveLst = boardPosArrayToMovesList(path);
+	display(moveLst, path->positions[0], board);
+	if (path->size == validPosNum) 	return 2;
+	else return 3;
 }
 
-boardPosArray readPathFromFile(char *file_name){
-    FILE *file = fopen(file_name,"rb");
-    short boardPosArrSize;
-    fread(&boardPosArrSize, sizeof(short), 1, file);
-    boardPosArray boardPosArray;
-    boardPosArray.positions = (boardPos *)malloc(sizeof(boardPos) * boardPosArrSize);
-    boardPosArray.size = boardPosArrSize;
-    int boardPosSize = ((boardPosArrSize * 6) / 8) + 1;
-    BYTE tempData[3];	//we read 3 bytes each time
-    int boardPosIndex = 0;
-    for (int byteArrIndex = 0; byteArrIndex < boardPosSize; byteArrIndex += 3) {
-        fread(tempData, sizeof(BYTE), 3, file);
-        threeBytesToThreeBoardPos(tempData, boardPosArray.positions, boardPosIndex , boardPosArrSize);
-        boardPosIndex +=4;
-    }
-    return boardPosArray;
+movesList *boardPosArrayToMovesList(boardPosArray *boardPosArr) {
+	int row, col;
+	boardPos prev, curr;
+	moveCell **prevMoveCell = (moveCell **)malloc(sizeof(moveCell *));//
+	movesList *moves = initNewMoveList(NULL, NULL);//
+	*prevMoveCell = moves->head;
+	for (int i = 0; i <boardPosArr->size-1; i++) {
+		prev[0] = boardPosArr->positions[i][0];
+		prev[1] = boardPosArr->positions[i][1];
+		curr[0] = boardPosArr->positions[i+1][0];
+		curr[1] = boardPosArr->positions[i+1][1];
+		row = curr[0] - prev[0];
+		col = curr[1] - prev[1];
+		moveCell *newMove = initNewMoveCell(initNewMove(row, col), NULL, *prevMoveCell);//
+		addToEndOfList(newMove, moves);
+		*prevMoveCell = newMove;
+	}
+	free(prevMoveCell);
+	return moves;
+}
+
+
+boardPosArray *readPathFromFile(char *file_name) {
+	FILE *file = fopen(file_name, "rb");
+	if (file == NULL) return NULL;
+	short boardPosArrSize;
+	fread(&boardPosArrSize, sizeof(short), 1, file);
+	boardPosArray *boardPosArr=(boardPosArray *)malloc(sizeof(boardPosArray));
+	boardPosArr->positions = (boardPos *)malloc(sizeof(boardPos) * boardPosArrSize);
+	boardPosArr->size = boardPosArrSize;
+	int boardPosSize = ((boardPosArrSize * 6) / 8) + 1;
+	BYTE tempData[3];	//we read 3 bytes each time
+	int boardPosIndex = 0;
+	for (int byteArrIndex = 0; byteArrIndex < boardPosSize; byteArrIndex += 3) {
+		fread(tempData, sizeof(BYTE), 3, file);
+		threeBytesToThreeBoardPos(tempData, boardPosArr->positions, boardPosIndex, boardPosArrSize);
+		boardPosIndex += 4;
+	}
+	return boardPosArr;
 }
 
 void threeBytesToThreeBoardPos(BYTE *data, boardPos *boardPosArr, int boardPosIndex, short boardPosArrSize) {
@@ -58,11 +94,8 @@ void threeBytesToThreeBoardPos(BYTE *data, boardPos *boardPosArr, int boardPosIn
 }
 
 bool isPathExists(pathTree pathTree, boardPosArray boardPosArr){
-	if (isPathExistsRec(pathTree.head, boardPosArr.positions, boardPosArr.size))
-		printf("T");
-	else printf("F");
+	return isPathExistsRec(pathTree.head, boardPosArr.positions, boardPosArr.size);
 }
-
 
 bool isBoardPosEqual(boardPos boardPos1, boardPos boardPos2) {
 	return boardPos1[0] == boardPos2[0] && boardPos1[1] == boardPos2[1];

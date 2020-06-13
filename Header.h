@@ -75,6 +75,8 @@ bool isPosValid(int row, int col, char **board);
 movesList *findPathCoveringAllBoard(boardPos start, movesArray **moves, char **board);
 void saveListToBinFile(char *file_name, boardPosArray *pos_arr);
 int checkAndDisplayPathFromFile ( char *file_name, movesArray **moves, char **board);
+int getCountOfValidPositions(char **board);
+movesList *reversedBoardPosArrayToMovesList(boardPosArray boardPosArray);
 // free
 void free2DArray(void** board);
 void freeMoveList(movesList* movesLst);

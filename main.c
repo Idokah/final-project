@@ -104,7 +104,7 @@ int main() {
 	
 	// q5
 	boardPosArray boardPosArray;
-	boardPosArray.size = 7;
+	boardPosArray.size = 6;
 	boardPosArray.positions = (boardPos*)malloc(sizeof(boardPos) * boardPosArray.size);
 
 	boardPosArray.positions[0][0] = 'A';
@@ -119,25 +119,25 @@ int main() {
 	boardPosArray.positions[4][1] = '1';
 	boardPosArray.positions[5][0] = 'B';
 	boardPosArray.positions[5][1] = '1';
-	boardPosArray.positions[6][0] = 'D';
-	boardPosArray.positions[6][1] = '1';
+	//boardPosArray.positions[6][0] = 'D';
+	//boardPosArray.positions[6][1] = '1';
 	saveListToBinFile("q5.bin", &boardPosArray);
 
 	//q6
-	checkAndDisplayPathFromFile("q5.bin", moveArrays2, board);
+	int q6Res = checkAndDisplayPathFromFile("q5.bin", moveArrays2, board);
+	printf("%d", q6Res);
 
 
-
-	   free2DArray(board);
-	   free(moveArray1);
-	   free(moveArray2);
-	   free(moveArray3);
-	   free2DArray(moveArrays);
-	   free2DArray(moveArrays2);
-	   freeMoveList(movesLst);
-	   if (pathMoveList)
-	   	freeMoveList(pathMoveList);
-	   freePathTree(treeRes);
+	free2DArray(board);
+	free(moveArray1);
+	free(moveArray2);
+	free(moveArray3);
+	free2DArray(moveArrays);
+	free2DArray(moveArrays2);
+	freeMoveList(movesLst);
+	if (pathMoveList)
+	freeMoveList(pathMoveList);
+	freePathTree(treeRes);
 
 }
 

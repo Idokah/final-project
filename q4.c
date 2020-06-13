@@ -1,14 +1,13 @@
 #include "Header.h"
 #include "list.h"
 
-int getCountOfValidPositions(char **board);
 boardPosArray getTreeLongestPath(pathTree *tree);
 boardPosArray getTreeLongestPathRec(treeNode *root);
 boardPosArray insertToBoardPosStart(boardPosArray boardPosArr,boardPos new);
 
 
 //void createMovesList(boardPosArray boardPosArray, movesList *ptrMovesList){
-movesList *createMovesList(boardPosArray boardPosArray){
+movesList *reversedBoardPosArrayToMovesList(boardPosArray boardPosArray){
     int row, col;
     boardPos prev, curr;
     moveCell **prevMoveCell = (moveCell **)malloc(sizeof(moveCell *));//
@@ -36,7 +35,7 @@ movesList *findPathCoveringAllBoard(boardPos start, movesArray **moves, char **b
     pathTree pathTree = findAllPossiblePaths(start, moves, board);
     boardPosArray longestPath = getTreeLongestPath(&pathTree);
     if (longestPath.size == validPosNum){
-		moveList = createMovesList(longestPath);
+		moveList = reversedBoardPosArrayToMovesList(longestPath);
     }
 	free(longestPath.positions);
     return moveList;

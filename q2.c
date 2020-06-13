@@ -81,13 +81,13 @@ void printBoard(char **board) {
 				currCh = (char)board[currRow][currCol];
 				if (ISNUMBER(currCh)) {
 					printf("%d", currCh);
-					if (!ISDIGIT(currCh))
-						col++;
-					char nextCh = (char)board[currRow][currCol+1];
-					if (ISDIGIT(nextCh)) {
-						printf("%d",nextCh);
-						col++;
-					}
+				if (!ISDIGIT(currCh))
+					col++;
+					//char nextCh = (char)board[currRow][currCol+1];
+					//if (ISDIGIT(nextCh)) {
+					//	printf("%d",nextCh);
+					//	col++;
+					//}
 				}
 				else printf("%c", currCh);
 			}
