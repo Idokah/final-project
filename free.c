@@ -23,7 +23,6 @@ void freePathTree(pathTree tree) {
 	freePathTreeRec(tree.head);
 }
 
-// TODO -need to ensure
 void freePathTreeRec(treeNode *treeNode){
 	treeNodeListCell *currChild = treeNode->next_possible_positions;
 	if (currChild == NULL) {

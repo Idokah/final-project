@@ -8,39 +8,58 @@ void threeBytesToThreeBoardPos(BYTE *data, boardPos *boardPosArr, int i, short b
 bool isPathExists(pathTree pathTree, boardPosArray path);
 bool isPathExistsRec(treeNode *node, boardPos *boardPosArr,int size);
 movesList *boardPosArrayToMovesList(boardPosArray *boardPosArr);
+boardPosArray *removeAllDuplicates(boardPosArray *path);
+
 
 int checkAndDisplayPathFromFile(char *file_name, movesArray **moves, char **board) {
-	boardPosArray *path = readPathFromFile(file_name);
-	//boardPosArray *path = (boardPosArray *)malloc(sizeof(boardPosArray));
-	//path->positions = (boardPos*)malloc(sizeof(boardPos) * 4);
-	//path->positions[0][0] = 'A';
-	//path->positions[0][1] = '2';
-	//path->positions[1][0] = 'A';
-	//path->positions[1][1] = '3';
-	//path->positions[2][0] = 'A';
-	//path->positions[2][1] = '2';
-	//path->positions[3][0] = 'A';
-	//path->positions[3][1] = '3';
-	if (path == NULL) return -1;
 	int res;
+	boardPosArray *path = readPathFromFile(file_name);
+	path = removeAllDuplicates(path);
+	if (path == NULL) return -1;
 	pathTree pathTree = findAllPossiblePaths(path->positions[0], moves, board);
 	if (!isPathExists(pathTree, *path)) {
-		free(path->positions);
-		free(path);
-		freePathTree(pathTree);
-		return 1;
+		res = 1;
 	}
-	freePathTree(pathTree);
-	int validPosNum = getCountOfValidPositions(board);
-	movesList *moveLst = boardPosArrayToMovesList(path);
-	display(moveLst, path->positions[0], board);
-	if (path->size == validPosNum) 	return 2;
-	else return 3;
+	else {
+		int validPosNum = getCountOfValidPositions(board);
+		movesList *moveLst = boardPosArrayToMovesList(path);
+		display(moveLst, path->positions[0], board);
+		if (path->size == validPosNum) 	res = 2;
+		else res = 3;
+	}
 	free(path->positions);
 	free(path);
 	freePathTree(pathTree);
 	return res;
 }
+
+boardPosArray *removeAllDuplicates(boardPosArray *path) {
+	char tempBoard[N][M];
+	for (int i = 0; i < N; ++i) {
+		for (int j = 0; j < M; ++j) {
+			tempBoard[i][j] = ' ';
+		}
+	}
+	boardPosArray *newPath = (boardPosArray *)malloc(sizeof(boardPosArray));
+	newPath->positions = (boardPos *)malloc(sizeof(boardPos) * (path->size));
+	newPath->size = 0;
+	int row, col;
+	for (int i = 0; i < path->size; ++i) {
+		row = path->positions[i][0];
+		col = path->positions[i][1];
+		if (tempBoard[row][col] != '*') {
+			newPath->positions[newPath->size][0] = path->positions[i][0];
+			newPath->positions[newPath->size][1] = path->positions[i][1];
+			tempBoard[row][col] = '*';
+			newPath->size++;
+		}
+	}
+	if (newPath->size < path->size)
+		newPath->positions = realloc(newPath->positions, sizeof(boardPos) * newPath->size);
+	return newPath;
+}
+
+
 
 movesList *boardPosArrayToMovesList(boardPosArray *boardPosArr) {
 	int row, col;
