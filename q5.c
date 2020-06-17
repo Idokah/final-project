@@ -8,7 +8,8 @@ void saveListToBinFile(char *file_name, boardPosArray *pos_arr){
     short size = pos_arr->size;
     fwrite(&(size), sizeof(short), 1, file);
     int bytesNum = (((6 * pos_arr->size) / 8 ) + 1);
-    BYTE *byteArr = (BYTE *) calloc(bytesNum , sizeof(BYTE));
+    BYTE *byteArr = (BYTE *)calloc(bytesNum , sizeof(BYTE));
+	assert(byteArr != NULL);
     int boardPosIndex = 0;
     for (int byteArrIndex = 0; byteArrIndex < pos_arr->size; byteArrIndex += 3) {
         fourBoardPosToThreeBytes(pos_arr->positions, byteArr, byteArrIndex, pos_arr->size, boardPosIndex);

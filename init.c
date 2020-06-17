@@ -9,6 +9,7 @@ Move initNewMove(int row, int col) {
 
 moveCell *initNewMoveCell (Move move, moveCell *next, moveCell *prev) {
     moveCell *newMoveCell=(moveCell*)malloc(sizeof(moveCell));//
+	assert(newMoveCell != NULL);
     newMoveCell->move = move;
     newMoveCell->next = next;
     newMoveCell->prev = prev;
@@ -17,6 +18,7 @@ moveCell *initNewMoveCell (Move move, moveCell *next, moveCell *prev) {
 
 movesList *initNewMoveList(moveCell *head, moveCell *tail) {
     movesList *movesLst=(movesList *)malloc(sizeof(movesList));//
+	assert(movesLst != NULL);
     movesLst->head = head;
     movesLst->tail = tail;
     return movesLst;

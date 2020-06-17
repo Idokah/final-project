@@ -30,7 +30,9 @@ boardPos *insertMove(Move newMove, movesArray* newMovesArr, boardPos *validPosit
 	if (*logSize >= *phySize) {
 		(*phySize) ++;
 		validPositions = (boardPos*)realloc(validPositions, (*phySize) * sizeof(boardPos));
+		assert(validPositions != NULL);
 		newMovesArr->moves = (Move*)realloc(newMovesArr->moves, (*phySize) * sizeof(Move));
+		assert(newMovesArr->moves != NULL);
 	}
 	insertToValidPositions(validPositions, newMove, *logSize, row, col);
 	insertToNewMovesArray(newMovesArr, newMove, *logSize, row, col);
@@ -59,8 +61,10 @@ void validMove(int row, int col, movesArray* moves, char **board, boardPosArray*
 
 boardPosArray **initNewBoardPosArr() {
 	boardPosArray **newBoardPosArr = (boardPosArray **)malloc(sizeof(boardPosArray*)*N);
+	assert(newBoardPosArr != NULL);
 	for (int row = 0; row < N; row++) {
 		newBoardPosArr[row] = (boardPosArray *)malloc(sizeof(boardPosArray)*M);
+		assert(newBoardPosArr[row] != NULL);
 	}
 	return newBoardPosArr;
 }

@@ -6,11 +6,11 @@ boardPosArray getTreeLongestPathRec(treeNode *root);
 boardPosArray insertToBoardPosStart(boardPosArray boardPosArr,boardPos new);
 
 
-//void createMovesList(boardPosArray boardPosArray, movesList *ptrMovesList){
 movesList *reversedBoardPosArrayToMovesList(boardPosArray boardPosArray){
     int row, col;
     boardPos prev, curr;
     moveCell **prevMoveCell = (moveCell **)malloc(sizeof(moveCell *));//
+	assert(prevMoveCell != NULL);
 	movesList *moves = initNewMoveList(NULL, NULL);//
 	*prevMoveCell = moves->head;
     for (int i = boardPosArray.size - 2; i >= 0 ; i--) {
@@ -38,6 +38,7 @@ movesList *findPathCoveringAllBoard(boardPos start, movesArray **moves, char **b
 		moveList = reversedBoardPosArrayToMovesList(longestPath);
     }
 	free(longestPath.positions);
+	freePathTree(pathTree);
     return moveList;
 }
 
@@ -68,6 +69,7 @@ boardPosArray getTreeLongestPathRec(treeNode *root){
         boardPosArray c;
         c.size=1;
         c.positions=(boardPos*)malloc(sizeof(boardPos)); 
+		assert(c.positions != NULL);
         c.positions[0][0]=root->position[0];
         c.positions[0][1]=root->position[1];
         return c;
@@ -85,6 +87,7 @@ boardPosArray getTreeLongestPathRec(treeNode *root){
 
 boardPosArray insertToBoardPosStart(boardPosArray boardPosArr,boardPos new) {
     boardPosArr.positions = realloc(boardPosArr.positions,sizeof(boardPos)*(boardPosArr.size + 1));//
+	assert(boardPosArr.positions != NULL);
     boardPosArr.positions[boardPosArr.size][0] = new[0];
     boardPosArr.positions[boardPosArr.size][1] = new[1];
     boardPosArr.size++;

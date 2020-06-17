@@ -5,8 +5,10 @@
 
 char **duplicateBoard(char **board) {
 	char **newBoard = (char **)malloc(N * sizeof(char *));
+	assert(newBoard != NULL);
 	for (int i = 0; i < N; ++i) {
 		newBoard[i] = (char *)malloc(M * sizeof(char));
+		assert(newBoard[i] != NULL);
 		for (int j = 0; j < M; ++j) {
 			newBoard[i][j] = board[i][j];
 		}

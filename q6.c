@@ -11,24 +11,43 @@ movesList *boardPosArrayToMovesList(boardPosArray *boardPosArr);
 
 int checkAndDisplayPathFromFile(char *file_name, movesArray **moves, char **board) {
 	boardPosArray *path = readPathFromFile(file_name);
+	//boardPosArray *path = (boardPosArray *)malloc(sizeof(boardPosArray));
+	//path->positions = (boardPos*)malloc(sizeof(boardPos) * 4);
+	//path->positions[0][0] = 'A';
+	//path->positions[0][1] = '2';
+	//path->positions[1][0] = 'A';
+	//path->positions[1][1] = '3';
+	//path->positions[2][0] = 'A';
+	//path->positions[2][1] = '2';
+	//path->positions[3][0] = 'A';
+	//path->positions[3][1] = '3';
 	if (path == NULL) return -1;
+	int res;
 	pathTree pathTree = findAllPossiblePaths(path->positions[0], moves, board);
 	if (!isPathExists(pathTree, *path)) {
-		free (path->positions);
+		free(path->positions);
 		free(path);
+		freePathTree(pathTree);
 		return 1;
 	}
+	freePathTree(pathTree);
 	int validPosNum = getCountOfValidPositions(board);
 	movesList *moveLst = boardPosArrayToMovesList(path);
 	display(moveLst, path->positions[0], board);
 	if (path->size == validPosNum) 	return 2;
 	else return 3;
+	free(path->positions);
+	free(path);
+	freePathTree(pathTree);
+	return res;
 }
 
 movesList *boardPosArrayToMovesList(boardPosArray *boardPosArr) {
 	int row, col;
 	boardPos prev, curr;
 	moveCell **prevMoveCell = (moveCell **)malloc(sizeof(moveCell *));//
+	assert(prevMoveCell != NULL);
+	
 	movesList *moves = initNewMoveList(NULL, NULL);//
 	*prevMoveCell = moves->head;
 	for (int i = 0; i <boardPosArr->size-1; i++) {
@@ -53,7 +72,9 @@ boardPosArray *readPathFromFile(char *file_name) {
 	short boardPosArrSize;
 	fread(&boardPosArrSize, sizeof(short), 1, file);
 	boardPosArray *boardPosArr=(boardPosArray *)malloc(sizeof(boardPosArray));
+	assert(boardPosArr != NULL);
 	boardPosArr->positions = (boardPos *)malloc(sizeof(boardPos) * boardPosArrSize);
+	assert(boardPosArr->positions != NULL);
 	boardPosArr->size = boardPosArrSize;
 	int boardPosSize = ((boardPosArrSize * 6) / 8) + 1;
 	BYTE tempData[3];	//we read 3 bytes each time
